@@ -15,7 +15,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL", f"sqlite:///app.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    DEBUG = True
+    DEBUG = os.getenv("DEBUG", False)
     SECRET = os.getenv("SECRET", "42")
     assert DEBUG or SECRET != "42", "You should use non-default secret in a production deployment"
 

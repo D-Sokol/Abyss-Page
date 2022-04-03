@@ -1,0 +1,1 @@
+web: gunicorn --bind $HOST:$PORT run:app
