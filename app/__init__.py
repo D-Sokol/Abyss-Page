@@ -12,7 +12,9 @@ class Config:
     HOST = os.getenv("HOST", "localhost")
     PORT = os.getenv("PORT", "5000")
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL", f"sqlite:///app.db")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL", f"sqlite:///app.db").replace(
+        "postgres://", "postgresql://", 1
+    )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     DEBUG = os.getenv("DEBUG", False)
