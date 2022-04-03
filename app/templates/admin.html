@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+
+{% block title %}
+Admin page
+{% endblock %}
+
+{% block message %}
+    Database contains {{ n_items }} records.</br>
+    {% if last_record %}
+        That's the last one:</br>
+        </br>
+        date={{ last_record.date }},</br>
+        agent={{ last_record.agent }}
+    {% endif %}
+{% endblock %}

@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request
-from .services import get_counter, add_record
+
+from ..services import get_counter, add_record
 
 bp = Blueprint("main", __name__)
 

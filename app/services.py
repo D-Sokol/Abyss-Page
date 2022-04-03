@@ -27,3 +27,16 @@ def add_record(agent: str, params: Optional[str] = None, length_limit=80) -> Non
     item = Item(agent=agent, params=params)
     session.add(item)
     session.commit()
+
+
+def clear_all() -> int:
+    n_items = get_counter()
+    logging.warning("Removing %d entries", n_items)
+    Item.query.delete()
+    session.commit()
+    return n_items
+
+
+def get_last_record() -> Optional[Item]:
+    item = Item.query.order_by(Item.item_id.desc()).first()
+    return item
