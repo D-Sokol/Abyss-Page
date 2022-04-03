@@ -1,11 +1,17 @@
+import os
+from dotenv import load_dotenv
 from flask import Flask
+
 from .routes import bp
+
+load_dotenv()
 
 
 class Config:
-    host = "localhost"
-    port = 5000
-    debug = True
+    HOST = os.getenv("HOST", "localhost")
+    PORT = os.getenv("PORT", "5000")
+
+    DEBUG = True
 
 
 def create_app(config: Config) -> Flask:
