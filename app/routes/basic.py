@@ -7,6 +7,11 @@ bp = Blueprint("main", __name__)
 
 @bp.route("/")
 @bp.route("/index")
+def webhook():
+    return "OK"
+
+
+@bp.route("/abyss")
 def main():
     agent = request.user_agent
     params = request.query_string.decode()
