@@ -22,7 +22,7 @@ class Config:
     assert DEBUG or SECRET != "42", "You should use non-default secret in a production deployment"
 
 
-def create_app(config: Config) -> Flask:
+def create_app(config: Config = Config()) -> Flask:
     app = Flask(__name__)
     app.config.from_object(config)
     app.register_blueprint(basic_bp)
