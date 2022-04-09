@@ -26,7 +26,12 @@ def login_required(handler):
 def main():
     n_items = get_counter()
     last_records = get_last_records(10)
-    return render_template("admin.html", n_items=n_items, last_records=last_records)
+    return render_template(
+        "admin.html",
+        n_items=n_items,
+        last_records=last_records,
+        current_args=request.args,
+    )
 
 
 @bp.route("/csv")

@@ -21,5 +21,7 @@ Admin page
         </tr>
         {% endfor %}
     </table>
+
+    <p>Export data in csv: <a href="{{ url_for('.get_csv', **current_args) }}">link</a></p>
     {% endif %}
 {% endblock %}
