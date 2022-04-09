@@ -23,7 +23,7 @@ class Config:
 
 
 def create_app(config: Config) -> Flask:
-    app = Flask(__name__)
+    app = Flask(__name__, static_url_path="/")
     app.config.from_object(config)
     app.register_blueprint(basic_bp)
     app.register_blueprint(admin_bp)
