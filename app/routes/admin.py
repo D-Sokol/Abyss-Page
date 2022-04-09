@@ -2,7 +2,7 @@ from flask import Blueprint, abort, current_app, render_template, request
 from functools import wraps
 from http import HTTPStatus
 
-from ..services import clear_all, get_counter, get_last_record
+from ..services import clear_all, get_counter, get_last_records
 
 bp = Blueprint("admin", __name__, url_prefix="/admin")
 
@@ -24,8 +24,8 @@ def login_required(handler):
 @login_required
 def main():
     n_items = get_counter()
-    last_record = get_last_record()
-    return render_template("admin.html", n_items=n_items, last_record=last_record)
+    last_records = get_last_records(10)
+    return render_template("admin.html", n_items=n_items, last_records=last_records)
 
 
 @bp.route("/clear")

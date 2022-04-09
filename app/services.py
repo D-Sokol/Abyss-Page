@@ -1,5 +1,5 @@
 import logging
-from typing import Optional
+from typing import List, Optional
 
 from .models import db, Item
 
@@ -40,3 +40,10 @@ def clear_all() -> int:
 def get_last_record() -> Optional[Item]:
     item = Item.query.order_by(Item.item_id.desc()).first()
     return item
+
+
+def get_last_records(n_records: Optional[int] = None) -> List[Item]:
+    query = Item.query.order_by(Item.item_id.desc())
+    if n_records is not None:
+        query = query.limit(n_records)
+    return query.all()
