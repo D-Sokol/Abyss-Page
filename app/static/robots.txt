@@ -1,1 +1,4 @@
-Disallow: *
+User-agent: *
+Allow: /abyss
+Allow: /achievement
+Disallow: /
