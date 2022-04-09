@@ -1,5 +1,6 @@
+import csv
 import logging
-from typing import List, Optional
+from typing import List, Optional, TextIO
 
 from .models import db, Item
 
@@ -47,3 +48,12 @@ def get_last_records(n_records: Optional[int] = None) -> List[Item]:
     if n_records is not None:
         query = query.limit(n_records)
     return query.all()
+
+
+def dump_records(records: List[Item], file: TextIO) -> None:
+    writer = csv.writer(file)
+    writer.writerow(("Date", "User-agent", "Parameters"))
+    writer.writerows(
+        (record.date, record.agent, record.params)
+        for record in records
+    )

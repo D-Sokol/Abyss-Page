@@ -1,8 +1,9 @@
-from flask import Blueprint, abort, current_app, render_template, request
+from io import BytesIO, TextIOWrapper
+from flask import Blueprint, abort, current_app, render_template, request, send_file
 from functools import wraps
 from http import HTTPStatus
 
-from ..services import clear_all, get_counter, get_last_records
+from ..services import clear_all, dump_records, get_counter, get_last_records
 
 bp = Blueprint("admin", __name__, url_prefix="/admin")
 
@@ -26,6 +27,22 @@ def main():
     n_items = get_counter()
     last_records = get_last_records(10)
     return render_template("admin.html", n_items=n_items, last_records=last_records)
+
+
+@bp.route("/csv")
+@login_required
+def get_csv():
+    records = get_last_records()
+    # Two file-like objects is created since send_file requires a binary file,
+    # while dump_records requires a text one.
+    stream = BytesIO()
+    wrapper = TextIOWrapper(stream)
+
+    dump_records(records, wrapper)
+    wrapper.detach()
+    stream.seek(0)
+
+    return send_file(stream, mimetype="text/csv")
 
 
 @bp.route("/clear")
