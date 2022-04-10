@@ -1,4 +1,5 @@
 import logging
+import secrets
 from typing import Optional
 
 from .models import db, Item
@@ -40,3 +41,7 @@ def clear_all() -> int:
 def get_last_record() -> Optional[Item]:
     item = Item.query.order_by(Item.item_id.desc()).first()
     return item
+
+
+def create_password() -> str:
+    return secrets.token_urlsafe(8)

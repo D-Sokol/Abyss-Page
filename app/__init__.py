@@ -26,6 +26,7 @@ class Config:
     MAIL_USE_SSL = (os.getenv("MAIL_USE_SSL", "true") == "true")
 
     UNIVERSAL_PAGE = os.getenv("UNIVERSAL_PAGE", "/")
+    FEEDBACK_FREQ = int(os.getenv("FEEDBACK_FREQ", 600))
 
     DEBUG = (os.getenv("DEBUG", "false") == "true")
     SECRET = os.getenv("SECRET", "42")
