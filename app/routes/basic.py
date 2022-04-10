@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request
 
 from ..services import get_counter, add_record
+from ..feedback import send_feedback
 
 bp = Blueprint("main", __name__)
 
@@ -23,3 +24,9 @@ def main():
 @bp.route("/achievement")
 def achievement():
     return render_template("achievement.html")
+
+
+@bp.route("/feedback")
+def feedback():
+    text = "test message"
+    send_feedback(text)
