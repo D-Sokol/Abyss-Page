@@ -6,10 +6,22 @@ Admin page
 
 {% block message %}
     Database contains {{ n_items }} records.</br>
-    {% if last_record %}
-        That's the last one:</br>
-        </br>
-        date={{ last_record.date }},</br>
-        agent={{ last_record.agent }}
+    {% if last_records %}
+    <table border>
+        <tr>
+            <th>Date</th>
+            <th>User-agent</th>
+            <th>Parameters</th>
+        </tr>
+        {% for item in last_records %}
+        <tr>
+            <td>{{ item.date }}</td>
+            <td>{{ item.agent }}</td>
+            <td>{{ item.params or "" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p>Export data in csv: <a href="{{ url_for('.get_csv', **current_args) }}">link</a></p>
     {% endif %}
 {% endblock %}
