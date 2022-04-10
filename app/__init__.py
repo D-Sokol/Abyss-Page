@@ -1,3 +1,4 @@
+import logging
 import os
 from dotenv import load_dotenv
 from flask import Flask
@@ -28,6 +29,7 @@ class Config:
     UNIVERSAL_PAGE = os.getenv("UNIVERSAL_PAGE", "/")
     FEEDBACK_FREQ = int(os.getenv("FEEDBACK_FREQ", 600))
 
+    LOGGING_LEVEL = os.getenv("LOGGING_LEVEL", "WARNING")
     DEBUG = (os.getenv("DEBUG", "false") == "true")
     SECRET = os.getenv("SECRET", "42")
     SECRET_KEY = os.getenv("SECRET_KEY")
@@ -35,6 +37,7 @@ class Config:
 
 
 def create_app(config: Config = Config()) -> Flask:
+    logging.basicConfig(level=config.LOGGING_LEVEL)
     app = Flask(__name__, static_url_path="/")
     app.config.from_object(config)
     app.register_blueprint(basic_bp)

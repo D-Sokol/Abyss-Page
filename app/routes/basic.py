@@ -1,3 +1,4 @@
+import logging
 import time
 from flask import abort, Blueprint, current_app, render_template, request, redirect
 from http import HTTPStatus
@@ -8,6 +9,8 @@ bp = Blueprint("main", __name__)
 
 feedback_password = create_password()
 feedback_available_from = time.time()
+
+logging.debug("Feedback password: %s", feedback_password)
 
 
 @bp.route("/")
@@ -34,12 +37,19 @@ def achievement():
 def feedback(password: str):
     global feedback_available_from
     global feedback_password
-    if password != feedback_password or time.time() < feedback_available_from:
+    now = time.time()
+    if password != feedback_password or now < feedback_available_from:
+        logging.info(
+            "Feedback forbidden. Password: %s, time left: %f",
+            password == feedback_password,
+            max(0, feedback_available_from - now)
+        )
         abort(HTTPStatus.NOT_FOUND)
 
     form = FeedbackForm()
     if form.is_submitted():
         message = form.message.data
+        logging.info("Sending message: %s", message)
         send_feedback(message)
         feedback_password = create_password()
         feedback_available_from = time.time() + current_app.config["FEEDBACK_FREQ"]
