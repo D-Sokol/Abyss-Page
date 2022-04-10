@@ -1,1 +1,1 @@
-web: gunicorn --bind $HOST:$PORT run:app
+web: gunicorn --bind $HOST:$PORT run:app --workers=1

@@ -7,6 +7,7 @@ from ..feedback import send_feedback, FeedbackForm
 
 bp = Blueprint("main", __name__)
 
+# TODO: configure shared state for multiple workers.
 feedback_password = create_password()
 feedback_available_from = time.time()
 
