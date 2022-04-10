@@ -1,5 +1,13 @@
 from flask import current_app
 from flask_mail import Mail, Message
+from flask_wtf import FlaskForm
+from wtforms import TextAreaField, SubmitField
+
+
+class FeedbackForm(FlaskForm):
+    message = TextAreaField("Message")
+    submit = SubmitField("Send")
+
 
 mail = Mail()
 

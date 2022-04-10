@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, current_app, render_template, request, redirect
 
 from ..services import get_counter, add_record
-from ..feedback import send_feedback
+from ..feedback import send_feedback, FeedbackForm
 
 bp = Blueprint("main", __name__)
 
@@ -26,7 +26,12 @@ def achievement():
     return render_template("achievement.html")
 
 
-@bp.route("/feedback")
+@bp.route("/feedback", methods=["GET", "POST"])
 def feedback():
-    text = "test message"
-    send_feedback(text)
+    form = FeedbackForm()
+    if form.is_submitted():
+        message = form.message.data
+        send_feedback(message)
+        return redirect(current_app.config["UNIVERSAL_PAGE"])
+    else:
+        return render_template("feedback.html", form=form)

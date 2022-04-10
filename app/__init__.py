@@ -25,8 +25,11 @@ class Config:
     MAIL_USE_TLS = (os.getenv("MAIL_USE_TLS", "false") == "true")
     MAIL_USE_SSL = (os.getenv("MAIL_USE_SSL", "true") == "true")
 
+    UNIVERSAL_PAGE = os.getenv("UNIVERSAL_PAGE", "/")
+
     DEBUG = (os.getenv("DEBUG", "false") == "true")
     SECRET = os.getenv("SECRET", "42")
+    SECRET_KEY = os.getenv("SECRET_KEY")
     assert DEBUG or SECRET != "42", "You should use non-default secret in a production deployment"
 
 
