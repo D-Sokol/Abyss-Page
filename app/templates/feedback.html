@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+
+{% block title %}
+Feedback form
+{% endblock %}
+
+{% block message %}
+    Since you found this page, you can send a message about this adventure.
+
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.message.label }}<br>
+            {{ form.message(size=128) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

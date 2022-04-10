@@ -1,5 +1,6 @@
 import csv
 import logging
+import secrets
 from typing import List, Optional, TextIO
 
 from .models import db, Item
@@ -57,3 +58,7 @@ def dump_records(records: List[Item], file: TextIO) -> None:
         (record.date, record.agent, record.params)
         for record in records
     )
+
+
+def create_password() -> str:
+    return secrets.token_urlsafe(8)
